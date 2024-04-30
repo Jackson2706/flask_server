@@ -58,7 +58,10 @@ def get_data_from_db():
     data = cursor.fetchall()
     conn.close()
     return data
-
+# POST-Create a new recode 
+#PUT- Update a record 
+#GET- Read a record
+# DELETE- Delete a record
 @app.route('/upload', methods=['POST'])
 def upload_data():
     """
@@ -68,7 +71,8 @@ def upload_data():
     - Response JSON indicating success or failure.
     """
     try:
-        data = request.json
+        data = request.json # HTTP message -> Json (dictionary)
+        # image = request.args.get("image")
         image_bytes = base64.b64decode(data['image'])
         string_data = data['name']
         timestamp = data['timestamp']
@@ -96,4 +100,4 @@ def get_data():
         return jsonify({'message': 'Error getting data', 'error': str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
